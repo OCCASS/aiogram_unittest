@@ -6,8 +6,6 @@
 
 ## 📚 Simple examples
 
-<hr>
-
 ### Simple handler test
 
 #### Simple bot:
