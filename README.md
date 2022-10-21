@@ -4,11 +4,9 @@
 
 ***aiogram_unittest*** is a testing library for bots written on <a href="https://github.com/aiogram/aiogram">aiogram</a>
 
-## Examples
+## 📚 Simple examples
 
 <hr>
-<details>
-<summary>📚 Click here to see simple examples</summary>
 
 ### Simple handler test
 
@@ -59,6 +57,5 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
 
 ```
 
-<a href='https://OCCCAS/aiogram_unittest/examples'>More</a> examples
-</details>
+### ▶️ <a href='https://OCCCAS/aiogram_unittest/examples'>More</a> examples
 
