@@ -1,10 +1,14 @@
-from typing import Callable, Any
+from typing import Any
+from typing import Callable
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot
+from aiogram import Dispatcher
+from aiogram import types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from .args_parser import ArgumentsParser
-from .dataset import USER, CHAT
+from .dataset import CHAT
+from .dataset import USER
 from .utils import initialize_bot
 
 
@@ -31,8 +35,16 @@ class RequestHandler:
 
 class MessageHandler(RequestHandler):
     def __init__(
-            self, callback, *custom_filters: Any, commands=None, regexp=None, content_types=None, state=None,
-            run_rask=None, **kwargs):
+        self,
+        callback,
+        *custom_filters: Any,
+        commands=None,
+        regexp=None,
+        content_types=None,
+        state=None,
+        run_rask=None,
+        **kwargs,
+    ):
         super().__init__(ArgumentsParser.get_send_message_args)
         self._callback = callback
         self._custom_filters = custom_filters
@@ -43,9 +55,15 @@ class MessageHandler(RequestHandler):
         self._run_task = run_rask
 
     async def __call__(self, message: types.Message):
-        self.dp.register_message_handler(self._callback, *self._custom_filters, commands=self._commands,
-                                         regexp=self._regexp, content_types=self._content_types, state=self._state,
-                                         run_task=self._run_task)
+        self.dp.register_message_handler(
+            self._callback,
+            *self._custom_filters,
+            commands=self._commands,
+            regexp=self._regexp,
+            content_types=self._content_types,
+            state=self._state,
+            run_task=self._run_task,
+        )
         if self._state:
             await self.dp.current_state().set_state(self._state)
         await self.dp.process_update(types.Update(message=message))
@@ -60,8 +78,9 @@ class CallbackQueryHandler(RequestHandler):
         self._run_task = run_task
 
     async def __call__(self, callback_query: types.CallbackQuery):
-        self.dp.register_callback_query_handler(self._callback, *self._custom_filters, state=self._state,
-                                                run_task=self._run_task)
+        self.dp.register_callback_query_handler(
+            self._callback, *self._custom_filters, state=self._state, run_task=self._run_task
+        )
         if self._state:
             await self.dp.current_state().set_state(self._state)
         await self.dp.process_update(types.Update(callback_query=callback_query))

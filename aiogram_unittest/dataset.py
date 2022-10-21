@@ -1,5 +1,5 @@
 BOT_ID = 123456789
-TOKEN = f'{BOT_ID}:AABBCCDDEEFFaabbccddeeff-1234567890'
+TOKEN = f"{BOT_ID}:AABBCCDDEEFFaabbccddeeff-1234567890"
 
 USER = {
     "id": 12345678,
@@ -74,9 +74,7 @@ CONTACT = {
     "last_name": "Smith",
 }
 
-DICE = {
-    "value": 6
-}
+DICE = {"value": 6}
 
 DOCUMENT = {
     "file_name": "test.docx",
@@ -140,9 +138,9 @@ GAME = {
 INVOICE = {
     "title": "Working Time Machine",
     "description": "Want to visit your great-great-great-grandparents? "
-                   "Make a fortune at the races? "
-                   "Shake hands with Hammurabi and take a stroll in the Hanging Gardens? "
-                   "Order our Working Time Machine today!",
+    "Make a fortune at the races? "
+    "Shake hands with Hammurabi and take a stroll in the Hanging Gardens? "
+    "Order our Working Time Machine today!",
     "start_parameter": "time-machine-example",
     "currency": "USD",
     "total_amount": 6250,
@@ -174,12 +172,7 @@ STICKER = {
     "height": 512,
     "emoji": "🛠",
     "set_name": "StickerSet",
-    "thumb": {
-        "file_id": "AAbbCCddEEffGGhh1234567890",
-        "file_size": 1234,
-        "width": 128,
-        "height": 128
-    },
+    "thumb": {"file_id": "AAbbCCddEEffGGhh1234567890", "file_size": 1234, "width": 128, "height": 128},
     "file_id": "AAbbCCddEEffGGhh1234567890",
     "file_size": 12345,
 }
@@ -246,8 +239,7 @@ FORWARDED_MESSAGE = {
     "forward_from_message_id": 123,
     "forward_date": 1522749037,
     "text": "Forwarded text with entities from public channel ",
-    "entities": [ENTITY_BOLD, ENTITY_CODE, ENTITY_ITALIC, ENTITY_LINK,
-                 ENTITY_LINK, ENTITY_MENTION, ENTITY_PRE],
+    "entities": [ENTITY_BOLD, ENTITY_CODE, ENTITY_ITALIC, ENTITY_LINK, ENTITY_LINK, ENTITY_MENTION, ENTITY_PRE],
 }
 
 INLINE_QUERY = {}
@@ -283,13 +275,7 @@ MESSAGE_WITH_CONTACT = {
 
 MESSAGE_WITH_DELETE_CHAT_PHOTO = {}
 
-MESSAGE_WITH_DICE = {
-    "message_id": 12345,
-    "from": USER,
-    "chat": CHAT,
-    "date": 1508768012,
-    "dice": DICE
-}
+MESSAGE_WITH_DICE = {"message_id": 12345, "from": USER, "chat": CHAT, "date": 1508768012, "dice": DICE}
 
 MESSAGE_WITH_DOCUMENT = {
     "message_id": 12345,
@@ -467,7 +453,8 @@ SHIPPING_QUERY = {
 }
 
 USER_PROFILE_PHOTOS = {
-    "total_count": 1, "photos": [
+    "total_count": 1,
+    "photos": [
         [PHOTO, PHOTO, PHOTO],
     ],
 }
@@ -478,7 +465,7 @@ FILE = {
     "file_path": "voice/file_8",
 }
 
-INVITE_LINK = 'https://t.me/joinchat/AbCdEfjKILDADwdd123'
+INVITE_LINK = "https://t.me/joinchat/AbCdEfjKILDADwdd123"
 
 UPDATE = {
     "update_id": 123456789,

@@ -1,8 +1,11 @@
 import inspect
-from typing import Any, Dict, List
+from typing import Any
+from typing import Dict
+from typing import List
 from unittest.mock import AsyncMock
 
-from aiogram.utils.helper import Helper, Item
+from aiogram.utils.helper import Helper
+from aiogram.utils.helper import Item
 
 from .handler import RequestHandler
 
@@ -131,8 +134,12 @@ class Request:
         result = {}
 
         for name, method in self._handler.bot.__dict__.items():
-            skip = (name.startswith('_'), name.endswith('_'), not inspect.iscoroutinefunction(method),
-                    not isinstance(method, AsyncMock))
+            skip = (
+                name.startswith("_"),
+                name.endswith("_"),
+                not inspect.iscoroutinefunction(method),
+                not isinstance(method, AsyncMock),
+            )
             if any(skip):
                 continue
 
