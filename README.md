@@ -1,7 +1,5 @@
 # aiogram_unittest
 
-<hr>
-
 ***aiogram_unittest*** is a testing library for bots written on <a href="https://github.com/aiogram/aiogram">aiogram</a>
 
 ## 📚 Simple examples
