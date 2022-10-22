@@ -1,7 +1,7 @@
 import unittest
 
 suite = unittest.TestSuite()
-test_modules = []
+test_modules = ["tests.test_bot"]
 for t in test_modules:
     try:
         mod = __import__(t, globals(), locals(), ["suite"])
