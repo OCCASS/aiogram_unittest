@@ -1,4 +1,4 @@
-from .request import Request
-from .request import RequestType
+from .requester import Requester
+from .requester import RequestType
 
-__all__ = ["Request", "RequestType"]
+__all__ = ["Requester", "RequestType"]
