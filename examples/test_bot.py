@@ -15,6 +15,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 class States(StatesGroup):
     state = State()
+    state_1 = State()
 
 
 @dp.message_handler(state="*")
@@ -30,6 +31,12 @@ async def command_handler(message: types.Message, state: FSMContext):
 @dp.message_handler(state=States.state)
 async def message_handler_with_state(message: types.Message, state: FSMContext):
     await message.reply("Hello, from state!")
+
+
+@dp.message_handler(state=States.state_1)
+async def message_handler_with_state_data(message: types.Message, state: FSMContext):
+    data = await state.get_data()
+    await message.answer(f'Info from state data: {data["info"]}')
 
 
 @dp.callback_query_handler(test_callback_data.filter(), state="*")
