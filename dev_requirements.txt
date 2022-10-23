@@ -1,5 +1,5 @@
 aiogram
-balck
+black
 pyupgrade
 reorder-python-imports
 autoflake
