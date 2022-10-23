@@ -1,5 +1,7 @@
 # aiogram_unittest
 
+![Project on PyPi](https://img.shields.io/badge/aiogram__unittest-pypi-brightgreen?link=https://pypi.org/project/aiogram-unittest/)
+
 ***aiogram_unittest*** is a testing library for bots written on <a href="https://github.com/aiogram/aiogram">aiogram</a>
 
 ## 📚 Simple examples
