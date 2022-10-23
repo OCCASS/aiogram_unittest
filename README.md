@@ -35,21 +35,19 @@ import unittest
 from aiogram import types
 from bot import echo
 
-from aiogram_unittest import Request, RequestType
-from aiogram_unittest.dataset import MESSAGE
+from aiogram_unittest import Requester, RequestType
+from aiogram_unittest.types.dataset import MESSAGE
 from aiogram_unittest.handler import MessageHandler
 
 
 class TestBot(unittest.IsolatedAsyncioTestCase):
     async def test_echo(self):
-        request = Request(request_handler=MessageHandler(echo))
+        request = Requester(request_handler=MessageHandler(echo))
 
-        message = types.Message(**MESSAGE)
-        message.text = 'Hello, Bot!'
-        call_args = await request.query(message)
+        calls = await request.query(MESSAGE.as_object(text="Hello, Bot!"))
 
-        answer_text = call_args[RequestType.SEND_MESSAGE][0]['text']
-        self.assertEqual(answer_text, 'Hello, Bot!')
+        answer_message = calls.send_messsage.fetchone()
+        self.assertEqual(answer_message.text, 'Hello, Bot!')
 
 ```
 
