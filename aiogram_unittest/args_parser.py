@@ -1,5 +1,3 @@
-from typing import Any
-from typing import Dict
 from typing import Sequence
 
 
@@ -25,31 +23,30 @@ def as_object(func):
 
 class ArgumentsParser:
     @classmethod
-    def _get_async_mock_args(cls, keys: Sequence, call_args) -> Dict[str, Any]:
+    def _get_async_mock_args(cls, keys: Sequence, call_args):
         result_data = {k: None for k in keys}
 
         if call_args is None:
             return result_data
 
-        args, kwargs = call_args.args, call_args.kwargs
-        for index, arg in enumerate(args):
+        for index, arg in enumerate(call_args.args):
             key_name = keys[index]
             result_data[key_name] = arg
 
-        for key_name, arg in kwargs.items():
+        for key_name, arg in call_args.kwargs.items():
             result_data[key_name] = arg
 
         return result_data
 
     @classmethod
     @as_object
-    def get_answer_callback_query_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_answer_callback_query_args(cls, async_mock_args):
         keys = ("callback_query_id", "text", "show_alert", "url", "cache_time")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_copy_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_copy_message_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "from_chat_id",
@@ -69,13 +66,13 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_create_chat_invite_link_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_create_chat_invite_link_args(cls, async_mock_args):
         keys = ("chat_id", "expire_date", "member_limit", "name", "creates_join_request", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_create_invoice_link_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_create_invoice_link_args(cls, async_mock_args):
         keys = (
             "title",
             "description",
@@ -102,7 +99,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_create_new_sticker_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_create_new_sticker_set_args(cls, async_mock_args):
         keys = (
             "user_id",
             "name",
@@ -121,49 +118,49 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_decline_chat_join_request_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_decline_chat_join_request_args(cls, async_mock_args):
         keys = ("chat_id", "user_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_chat_photo_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_chat_photo_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_chat_sticker_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_chat_sticker_set_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_message_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_my_commands_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_my_commands_args(cls, async_mock_args):
         keys = ("scope", "language_code", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_sticker_from_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_sticker_from_set_args(cls, async_mock_args):
         keys = ("sticker", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_delete_webhook_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_delete_webhook_args(cls, async_mock_args):
         keys = ("drop_pending_updates", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_download_file_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_download_file_args(cls, async_mock_args):
         keys = (
             "file_path",
             "destination",
@@ -182,13 +179,13 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_download_file_by_id_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_download_file_by_id_args(cls, async_mock_args):
         keys = ("file_id", "destination", "timeout", "chunk_size", "seek", "destination_dir", "make_dirs", "file")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_edit_chat_invite_link_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_chat_invite_link_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "invite_link",
@@ -203,7 +200,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_edit_message_caption_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_message_caption_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "message_id",
@@ -219,7 +216,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_edit_message_live_location_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_message_live_location_args(cls, async_mock_args):
         keys = (
             "latitude",
             "longitude",
@@ -237,19 +234,19 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_edit_message_media_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_message_media_args(cls, async_mock_args):
         keys = ("media", "chat_id", "message_id", "inline_message_id", "reply_markup", "payload", "files", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_edit_message_reply_markup_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_message_reply_markup_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "inline_message_id", "reply_markup", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_edit_message_text_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_edit_message_text_args(cls, async_mock_args):
         keys = (
             "text",
             "chat_id",
@@ -266,169 +263,169 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_export_chat_invite_link_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_export_chat_invite_link_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_forward_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_forward_message_args(cls, async_mock_args):
         keys = ("chat_id", "from_chat_id", "message_id", "disable_notification", "protect_content", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_args(cls, async_mock_args):
         keys = ("key", "default")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_args(cls, async_mock_args):
         keys = ("chat_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_administrators_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_administrators_args(cls, async_mock_args):
         keys = ("chat_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_member_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_member_args(cls, async_mock_args):
         keys = ("chat_id", "user_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_member_count_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_member_count_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_members_count_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_members_count_args(cls, async_mock_args):
         keys = ("chat_id",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_chat_menu_button_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_chat_menu_button_args(cls, async_mock_args):
         keys = ("chat_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_current_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_current_args(cls, async_mock_args):
         keys = ("no_error",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_custom_emoji_stickers_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_custom_emoji_stickers_args(cls, async_mock_args):
         keys = ("custom_emoji_ids", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_file_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_file_args(cls, async_mock_args):
         keys = ("file_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_file_url_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_file_url_args(cls, async_mock_args):
         keys = ("file_path",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_game_high_scores_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_game_high_scores_args(cls, async_mock_args):
         keys = ("user_id", "chat_id", "message_id", "inline_message_id", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_me_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_me_args(cls, async_mock_args):
         keys = ("payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_my_commands_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_my_commands_args(cls, async_mock_args):
         keys = ("scope", "language_code", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_my_default_administrator_rights_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_my_default_administrator_rights_args(cls, async_mock_args):
         keys = ("for_channels", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_new_session_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_new_session_args(cls, async_mock_args):
         keys = ()
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_session_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_session_args(cls, async_mock_args):
         keys = ()
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_sticker_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_sticker_set_args(cls, async_mock_args):
         keys = ("name", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_updates_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_updates_args(cls, async_mock_args):
         keys = ("offset", "limit", "timeout", "allowed_updates", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_user_profile_photos_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_user_profile_photos_args(cls, async_mock_args):
         keys = ("user_id", "offset", "limit", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_get_webhook_info_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_get_webhook_info_args(cls, async_mock_args):
         keys = ("payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_kick_chat_member_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_kick_chat_member_args(cls, async_mock_args):
         keys = ("chat_id", "user_id", "until_date", "revoke_messages")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_leave_chat_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_leave_chat_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_log_out_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_log_out_args(cls, async_mock_args):
         keys = ("payload",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_pin_chat_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_pin_chat_message_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "disable_notification", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_promote_chat_member_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_promote_chat_member_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "user_id",
@@ -450,19 +447,19 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_request_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_request_args(cls, async_mock_args):
         keys = ("method", "data", "files", "kwargs")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_request_timeout_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_request_timeout_args(cls, async_mock_args):
         keys = ("kwds",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_restrict_chat_member_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_restrict_chat_member_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "user_id",
@@ -479,13 +476,13 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_revoke_chat_invite_link_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_revoke_chat_invite_link_args(cls, async_mock_args):
         keys = ("chat_id", "invite_link", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_send_animation_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_animation_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "animation",
@@ -509,7 +506,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_audio_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_audio_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "audio",
@@ -533,13 +530,13 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_chat_action_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_chat_action_args(cls, async_mock_args):
         keys = ("chat_id", "action", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_send_contact_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_contact_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "phone_number",
@@ -558,7 +555,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_dice_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_dice_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "disable_notification",
@@ -574,7 +571,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_document_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_document_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "document",
@@ -596,13 +593,13 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_file_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_file_args(cls, async_mock_args):
         keys = ("file_type", "method", "file", "payload", "files")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_send_game_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_game_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "game_short_name",
@@ -618,7 +615,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_invoice_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_invoice_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "title",
@@ -654,7 +651,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_location_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_location_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "latitude",
@@ -675,7 +672,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_media_group_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_media_group_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "media",
@@ -691,7 +688,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_message_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "text",
@@ -710,7 +707,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_photo_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_photo_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "photo",
@@ -730,7 +727,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_poll_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_poll_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "question",
@@ -757,7 +754,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_sticker_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_sticker_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "sticker",
@@ -774,7 +771,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_venue_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_venue_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "latitude",
@@ -797,7 +794,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_video_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_video_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "video",
@@ -822,7 +819,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_video_note_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_video_note_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "video_note",
@@ -842,7 +839,7 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_send_voice_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_send_voice_args(cls, async_mock_args):
         keys = (
             "chat_id",
             "voice",
@@ -863,55 +860,55 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_set_chat_administrator_custom_title_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_administrator_custom_title_args(cls, async_mock_args):
         keys = ("chat_id", "user_id", "custom_title", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_description_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_description_args(cls, async_mock_args):
         keys = ("chat_id", "description", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_menu_button_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_menu_button_args(cls, async_mock_args):
         keys = ("chat_id", "menu_button", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_permissions_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_permissions_args(cls, async_mock_args):
         keys = ("chat_id", "permissions", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_photo_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_photo_args(cls, async_mock_args):
         keys = ("chat_id", "photo", "payload", "files")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_sticker_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_sticker_set_args(cls, async_mock_args):
         keys = ("chat_id", "sticker_set_name", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_chat_title_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_chat_title_args(cls, async_mock_args):
         keys = ("chat_id", "title", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_current_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_current_args(cls, async_mock_args):
         keys = ("value",)
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_game_score_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_game_score_args(cls, async_mock_args):
         keys = (
             "user_id",
             "score",
@@ -927,37 +924,37 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_set_my_commands_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_my_commands_args(cls, async_mock_args):
         keys = ("commands", "scope", "language_code", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_my_default_administrator_rights_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_my_default_administrator_rights_args(cls, async_mock_args):
         keys = ("rights", "for_channels", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_passport_data_errors_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_passport_data_errors_args(cls, async_mock_args):
         keys = ("user_id", "errors", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_sticker_position_in_set_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_sticker_position_in_set_args(cls, async_mock_args):
         keys = ("sticker", "position", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_sticker_set_thumb_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_sticker_set_thumb_args(cls, async_mock_args):
         keys = ("name", "user_id", "thumb", "payload", "files")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_set_webhook_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_set_webhook_args(cls, async_mock_args):
         keys = (
             "url",
             "certificate",
@@ -973,48 +970,48 @@ class ArgumentsParser:
 
     @classmethod
     @as_object
-    def get_stop_message_live_location_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_stop_message_live_location_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "inline_message_id", "reply_markup", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_stop_poll_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_stop_poll_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "reply_markup", "payload", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_unban_chat_member_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_unban_chat_member_args(cls, async_mock_args):
         keys = ("chat_id", "user_id", "only_if_banned", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_unban_chat_sender_chat_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_unban_chat_sender_chat_args(cls, async_mock_args):
         keys = ("chat_id", "sender_chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_unpin_all_chat_messages_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_unpin_all_chat_messages_args(cls, async_mock_args):
         keys = ("chat_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_unpin_chat_message_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_unpin_chat_message_args(cls, async_mock_args):
         keys = ("chat_id", "message_id", "payload")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_upload_sticker_file_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_upload_sticker_file_args(cls, async_mock_args):
         keys = ("user_id", "png_sticker", "payload", "files", "result")
         return cls._get_async_mock_args(keys, async_mock_args)
 
     @classmethod
     @as_object
-    def get_with_token_args(cls, async_mock_args) -> Dict[str, Any]:
+    def get_with_token_args(cls, async_mock_args):
         keys = ("kwds",)
         return cls._get_async_mock_args(keys, async_mock_args)

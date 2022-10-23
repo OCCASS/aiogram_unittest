@@ -1,45 +1,74 @@
-from aiogram import Bot
-from aiogram import Dispatcher
-from aiogram import types
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State
-from aiogram.dispatcher.filters.state import StatesGroup
-from aiogram.utils.callback_data import CallbackData
+import unittest
 
-test_callback_data = CallbackData("send_user", "id", "name")
+from bot import callback_query_handler
+from bot import callback_query_handler_with_state
+from bot import command_handler
+from bot import message_handler
+from bot import message_handler_with_state
+from bot import States
+from bot import test_callback_data
 
-bot = Bot("123456789:AABBCCDDEEFFaabbccddeeff-1234567890")
-dp = Dispatcher(bot, storage=MemoryStorage())
-
-
-class States(StatesGroup):
-    state = State()
+from aiogram_unittest import Requester
+from aiogram_unittest.handler import CallbackQueryHandler
+from aiogram_unittest.handler import MessageHandler
+from aiogram_unittest.types.dataset import CALLBACK_QUERY
+from aiogram_unittest.types.dataset import MESSAGE
 
 
-@dp.message_handler(state="*")
-async def message_handler(message: types.Message, state: FSMContext):
-    await message.answer(message.text)
+class TestBot(unittest.IsolatedAsyncioTestCase):
+    async def test_message_handler(self):
+        requester = Requester(request_handler=MessageHandler(message_handler))
 
+        message = MESSAGE.as_object(text="Hello!")
+        calls = await requester.query(message)
 
-@dp.message_handler(commands=["start"], state="*")
-async def command_handler(message: types.Message, state: FSMContext):
-    await message.answer("Hello, new user!")
+        answer_message = calls.send_message.fetchone().text
+        self.assertEqual(answer_message, "Hello!")
 
+    async def test_command_handler(self):
+        requester = Requester(request_handler=MessageHandler(command_handler, commands=["start"]))
 
-@dp.message_handler(state=States.state)
-async def message_handler_with_state(message: types.Message, state: FSMContext):
-    await message.reply("Hello, from state!")
+        message = MESSAGE.as_object(text="/start")
+        calls = await requester.query(message)
 
+        answer_message = calls.send_message.fetchone().text
+        self.assertEqual(answer_message, "Hello, new user!")
 
-@dp.callback_query_handler(test_callback_data.filter(), state="*")
-async def callback_query_handler(callback_query: types.CallbackQuery, callback_data: dict, state: FSMContext):
-    name = callback_data.get("name")
-    await callback_query.message.answer(f"Hello, {name}")
+    async def test_message_handler_with_state(self):
+        requester = Requester(request_handler=MessageHandler(message_handler_with_state, state=States.state))
 
+        message = MESSAGE.as_object(text="Hello, bot!")
+        calls = await requester.query(message)
 
-@dp.callback_query_handler(test_callback_data.filter(), state=States.state)
-async def callback_query_handler_with_state(
-    callback_query: types.CallbackQuery, callback_data: dict, state: FSMContext
-):
-    await callback_query.answer("Hello, from state!")
+        answer_message = calls.send_message.fetchone().text
+        self.assertEqual(answer_message, "Hello, from state!")
+
+    async def test_callback_query_handler_with_state(self):
+        requester = Requester(
+            request_handler=CallbackQueryHandler(callback_query_handler_with_state, test_callback_data.filter())
+        )
+
+        callback_query = CALLBACK_QUERY.as_object(data=test_callback_data.new(id="1", name="John"))
+        calls = await requester.query(callback_query)
+
+        answer_text = calls.answer_callback_query.fetchone().text
+        self.assertEqual(answer_text, "Hello, from state!")
+
+    async def test_callback_query_handler(self):
+        requester = Requester(request_handler=CallbackQueryHandler(callback_query_handler, test_callback_data.filter()))
+
+        callback_query = CALLBACK_QUERY.as_object(
+            data=test_callback_data.new(id="1", name="John"), message=MESSAGE.as_object(text="Hello world!")
+        )
+        calls = await requester.query(callback_query)
+
+        answer_text = calls.send_message.fetchone().text
+        self.assertEqual(answer_text, "Hello, John")
+
+        callback_query = CALLBACK_QUERY.as_object(
+            data=test_callback_data.new(id="1", name="Mike"), message=MESSAGE.as_object(text="Hello world!")
+        )
+        calls = await requester.query(callback_query)
+
+        answer_text = calls.send_message.fetchone().text
+        self.assertEqual(answer_text, "Hello, Mike")
