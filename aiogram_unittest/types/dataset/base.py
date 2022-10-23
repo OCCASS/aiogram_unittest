@@ -24,12 +24,12 @@ class DatasetItem(Mapping):
         :return: Any | None
         """
         try:
+            data = self._data.copy()
+            data.update(**replace_args)
             if self._model and isinstance(self._data, dict):
-                data = self._data.copy()
-                data.update(**replace_args)
                 return self._recursive_as_object(data, self._model)
             else:
-                return None
+                return data
         except (AttributeError, TypeError):
             return None
 
