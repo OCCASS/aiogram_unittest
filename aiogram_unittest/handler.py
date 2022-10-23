@@ -7,8 +7,8 @@ from aiogram import types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from .args_parser import ArgumentsParser
-from .dataset import CHAT
-from .dataset import USER
+from .types.dataset import CHAT
+from .types.dataset import USER
 from .utils import initialize_bot
 
 
@@ -20,8 +20,8 @@ class RequestHandler:
 
         Bot.set_current(self.bot)
         Dispatcher.set_current(self.dp)
-        types.User.set_current(types.User(**USER))
-        types.Chat.set_current(types.Chat(**CHAT))
+        types.User.set_current(USER.as_object())
+        types.Chat.set_current(CHAT.as_object())
 
     def parse_args(self, call_args: Any) -> dict:
         if call_args is None:

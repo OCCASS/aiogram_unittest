@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock
 
 from aiogram import Bot
 
-from .dataset import TOKEN
+from .types import TOKEN
 
 
 def initialize_bot() -> Bot:
