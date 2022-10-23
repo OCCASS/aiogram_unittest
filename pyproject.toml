@@ -1,5 +1,5 @@
 [build-system]
-requires = ["aiogram"]
+requires = ["aiogram", "setuptools"]
 
 [project]
 name = "aiogram_unittest"
@@ -7,7 +7,7 @@ version = "0.0.1"
 authors = [
     { name = "Timur", email = "pavlov.timur556@yandex.ru" }
 ]
-descrtiption = "A library for unittesting your bots on aiogram"
+description = "A library for unittesting your bots on aiogram"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
