@@ -5,6 +5,7 @@ from bot import callback_query_handler_with_state
 from bot import command_handler
 from bot import message_handler
 from bot import message_handler_with_state
+from bot import message_handler_with_state_data
 from bot import States
 from bot import test_callback_data
 
@@ -72,3 +73,14 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
 
         answer_text = calls.send_message.fetchone().text
         self.assertEqual(answer_text, "Hello, Mike")
+
+    async def test_handler_with_state_data(self):
+        requester = Requester(
+            request_handler=MessageHandler(
+                message_handler_with_state_data, state=States.state_1, state_data={"info": "this is message handler"}
+            )
+        )
+
+        calls = await requester.query(MESSAGE.as_object())
+        answer_message = calls.send_message.fetchone()
+        self.assertEqual(answer_message.text, "Info from state data: this is message handler")
