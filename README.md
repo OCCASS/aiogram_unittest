@@ -48,5 +48,5 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
 
 ```
 
-### ▶️ <a href='https://OCCCAS/aiogram_unittest/examples'>More</a> examples
+### ▶️ <a href='https://github.com/OCCCAS/aiogram_unittest/tree/master/examples'>More</a> examples
 
