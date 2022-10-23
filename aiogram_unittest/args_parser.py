@@ -34,7 +34,8 @@ class ArgumentsParser:
             result_data[key_name] = arg
 
         for key_name, arg in call_args.kwargs.items():
-            result_data[key_name] = arg
+            if key_name in keys:
+                result_data[key_name] = arg
 
         return result_data
 
