@@ -17,7 +17,7 @@ class DatasetItem(Mapping):
     def model(self) -> Any:
         return self._model
 
-    def as_object(self, **replace_args: dict) -> Union[Any, None]:
+    def as_object(self, **replace_args) -> Union[Any, None]:
         """
         Return an object from dict
 
