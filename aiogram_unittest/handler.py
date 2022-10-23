@@ -43,6 +43,7 @@ class MessageHandler(RequestHandler):
         content_types=None,
         state=None,
         run_rask=None,
+        state_data: dict = None,
         **kwargs,
     ):
         super().__init__(ArgumentsParser.get_send_message_args)
@@ -53,6 +54,10 @@ class MessageHandler(RequestHandler):
         self._content_types = content_types
         self._state = state
         self._run_task = run_rask
+        self._state_data = state_data
+
+        if self._state_data is None:
+            self._state_data = {}
 
     async def __call__(self, message: types.Message):
         self.dp.register_message_handler(
@@ -66,16 +71,22 @@ class MessageHandler(RequestHandler):
         )
         if self._state:
             await self.dp.current_state().set_state(self._state)
+            await self.dp.current_state().update_data(**self._state_data)
+
         await self.dp.process_update(types.Update(message=message))
 
 
 class CallbackQueryHandler(RequestHandler):
-    def __init__(self, callback, *custom_filters, state=None, run_task=None, **kwargs):
+    def __init__(self, callback, *custom_filters, state=None, run_task=None, state_data: dict = None, **kwargs):
         super().__init__(ArgumentsParser.get_answer_callback_query_args)
         self._callback = callback
         self._custom_filters = custom_filters
         self._state = state
         self._run_task = run_task
+        self._state_data = state_data
+
+        if self._state_data is None:
+            self._state_data = {}
 
     async def __call__(self, callback_query: types.CallbackQuery):
         self.dp.register_callback_query_handler(
@@ -83,4 +94,6 @@ class CallbackQueryHandler(RequestHandler):
         )
         if self._state:
             await self.dp.current_state().set_state(self._state)
+            await self.dp.current_state().update_data(**self._state_data)
+
         await self.dp.process_update(types.Update(callback_query=callback_query))
