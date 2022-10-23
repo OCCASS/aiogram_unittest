@@ -32,12 +32,11 @@ if __name__ == '__main__':
 ```python
 import unittest
 
-from aiogram import types
 from bot import echo
 
-from aiogram_unittest import Requester, RequestType
-from aiogram_unittest.types.dataset import MESSAGE
+from aiogram_unittest import Requester
 from aiogram_unittest.handler import MessageHandler
+from aiogram_unittest.types.dataset import MESSAGE
 
 
 class TestBot(unittest.IsolatedAsyncioTestCase):
