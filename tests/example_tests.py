@@ -22,7 +22,7 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         message = MESSAGE.as_object(text="Hello!")
         calls = await requester.query(message)
 
-        answer_message = calls.send_message[0].text
+        answer_message = calls.send_message.fetchone().text
         self.assertEqual(answer_message, "Hello!")
 
     async def test_command_handler(self):
@@ -31,7 +31,7 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         message = MESSAGE.as_object(text="/start")
         calls = await requester.query(message)
 
-        answer_message = calls.send_message[0].text
+        answer_message = calls.send_message.fetchone().text
         self.assertEqual(answer_message, "Hello, new user!")
 
     async def test_message_handler_with_state(self):
@@ -40,7 +40,7 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         message = MESSAGE.as_object(text="Hello, bot!")
         calls = await requester.query(message)
 
-        answer_message = calls.send_message[0].text
+        answer_message = calls.send_message.fetchone().text
         self.assertEqual(answer_message, "Hello, from state!")
 
     async def test_callback_query_handler_with_state(self):
@@ -51,7 +51,7 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         callback_query = CALLBACK_QUERY.as_object(data=test_callback_data.new(id="1", name="John"))
         calls = await requester.query(callback_query)
 
-        answer_text = calls.answer_callback_query[0].text
+        answer_text = calls.answer_callback_query.fetchone().text
         self.assertEqual(answer_text, "Hello, from state!")
 
     async def test_callback_query_handler(self):
@@ -62,7 +62,7 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         )
         calls = await requester.query(callback_query)
 
-        answer_text = calls.send_message[0].text
+        answer_text = calls.send_message.fetchone().text
         self.assertEqual(answer_text, "Hello, John")
 
         callback_query = CALLBACK_QUERY.as_object(
@@ -70,5 +70,5 @@ class TestBot(unittest.IsolatedAsyncioTestCase):
         )
         calls = await requester.query(callback_query)
 
-        answer_text = calls.send_message[0].text
+        answer_text = calls.send_message.fetchone().text
         self.assertEqual(answer_text, "Hello, Mike")

@@ -121,14 +121,23 @@ class RequestType(Helper):
     UPLOAD_STICKER_FILE = Item()
 
 
-class _ResultObjectBase:
+class CallsList(list):
+    def fetchone(self):
+        if len(self) > 0:
+            return self[-1]
+        else:
+            return None
+
+    def fetchall(self):
+        return self
+
+
+class Calls:
     def append_to_key(self, key, value):
         attr = getattr(self, key)
         attr.append(value)
         setattr(self, key, attr)
 
-
-class Calls(_ResultObjectBase):
     def __getattr__(self, item):
         return getattr(self, item)
 
@@ -165,5 +174,5 @@ class Requester:
         return self._handler.bot.__dict__.items()
 
     def _build_result_object(self) -> Calls:
-        GeneratedCalls = type("GeneratedCalls", (Calls,), {name: [] for name, _ in self._get_bot_methods()})
+        GeneratedCalls = type("GeneratedCalls", (Calls,), {name: CallsList() for name, _ in self._get_bot_methods()})
         return GeneratedCalls()
