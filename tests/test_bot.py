@@ -1,12 +1,12 @@
 import unittest
 
-from test_bot import callback_query_handler
-from test_bot import callback_query_handler_with_state
-from test_bot import command_handler
-from test_bot import message_handler
-from test_bot import message_handler_with_state
-from test_bot import States
-from test_bot import test_callback_data
+from bot import callback_query_handler
+from bot import callback_query_handler_with_state
+from bot import command_handler
+from bot import message_handler
+from bot import message_handler_with_state
+from bot import States
+from bot import test_callback_data
 
 from aiogram_unittest import Requester
 from aiogram_unittest.handler import CallbackQueryHandler

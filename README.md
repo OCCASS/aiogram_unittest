@@ -32,26 +32,21 @@ if __name__ == '__main__':
 ```python
 import unittest
 
-from aiogram import types
 from bot import echo
 
-from aiogram_unittest import Request, RequestType
-from aiogram_unittest.dataset import MESSAGE
+from aiogram_unittest import Requester
 from aiogram_unittest.handler import MessageHandler
+from aiogram_unittest.types.dataset import MESSAGE
 
 
 class TestBot(unittest.IsolatedAsyncioTestCase):
     async def test_echo(self):
-        request = Request(request_handler=MessageHandler(echo))
-
-        message = types.Message(**MESSAGE)
-        message.text = 'Hello, Bot!'
-        call_args = await request.query(message)
-
-        answer_text = call_args[RequestType.SEND_MESSAGE][0]['text']
-        self.assertEqual(answer_text, 'Hello, Bot!')
+        request = Requester(request_handler=MessageHandler(echo))
+        calls = await request.query(message=MESSAGE.as_object(text="Hello, Bot!"))
+        answer_message = calls.send_messsage.fetchone()
+        self.assertEqual(answer_message.text, 'Hello, Bot!')
 
 ```
 
-### ▶️ <a href='https://OCCCAS/aiogram_unittest/examples'>More</a> examples
+### ▶️ <a href='https://github.com/OCCCAS/aiogram_unittest/tree/master/examples'>More</a> examples
 
